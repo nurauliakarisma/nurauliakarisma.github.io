@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nur Aulia Karisma Dewi - Quality Assurance Engineer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="portfolio-container">
+        <!-- SIDEBAR BACKDROP OVERLAY FOR MOBILE -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-close-btn" aria-label="Close Sidebar" title="Close Sidebar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="logo-area">
+                <img src="Asset_img_Thubnile/QA Journey.png" alt="Logo" class="logo-img">
+                <div class="logo-text">
+                    <h3>Nur Aulia Karisma Dewi</h3>
+                    <span>Quality Assurance Engineer</span>
+                </div>
+            </div>
+
+            <!-- SIDEBAR NAV LINKS -->
+            <ul class="nav-links">
+                <li class="active"><a href="index.html" data-tooltip="Home"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="Modul/about.html" data-tooltip="About"><i class="fa-solid fa-user"></i> About</a></li>
+                <li><a href="#services" data-tooltip="Services"><i class="fa-solid fa-layer-group"></i> Services</a></li>
+                <li><a href="Modul/portfolio.html" data-tooltip="Portfolio"><i class="fa-solid fa-briefcase"></i> Portfolio</a></li>
+                <li><a href="Modul/youtube.html" data-tooltip="YouTube"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+                <li><a href="Modul/article.html" data-tooltip="Article"><i class="fa-solid fa-newspaper"></i> Article</a></li>
+                <li><a href="Modul/certificate.html" data-tooltip="Certificate"><i class="fa-solid fa-award"></i> Certificate</a></li>
+                <li><a href="#contact" data-tooltip="Contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+            </ul>
+
+            <div class="freelance-card">
+                <p>Available for QA Projects</p>
+                <small>Let's ensure your software quality together!</small>
+                <a href="#contact" class="btn-hire"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
+            </div>
+
+            <div class="sidebar-footer">
+                <p class="download-label">DOWNLOAD CV</p>
+                <a href="certification/sertif.png" class="btn-download" download data-tooltip="Download CV">
+                    <i class="fa-solid fa-file-arrow-down"></i> Download CV
+                </a>
+                
+                <p class="follow-label">FOLLOW ME</p>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/nurauliakarisma?igsi=NmxudG5hdjR0bzlm" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://medium.com/@nurauliakarismadewi" target="_blank" title="Medium"><i class="fa-brands fa-medium"></i></a>
+                    <a href="https://www.youtube.com/@nurauliakarismadewi" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://github.com/nurauliakarisma" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-nav">
+                <div class="top-nav-left">
+                    <button id="sidebarToggle" class="sidebar-toggle-btn" aria-label="Toggle Sidebar" title="Toggle Sidebar">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                </div>
+                <div class="top-nav-right">
+                    <nav>
+                        <a href="index.html" class="active">Home</a>
+                        <a href="Modul/about.html">About</a>
+                        <a href="Modul/youtube.html">Youtube</a>
+                        <a href="Modul/article.html">Article</a>
+                        <a href="Modul/certificate.html">Certificate</a>
+                    </nav>
+                    <a href="#contact" class="btn-lets-talk">Let's Talk <i class="fa-solid fa-paper-plane"></i></a>
+                </div>
+            </header>
+
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-text">
+                    <span class="greeting">HELLO, I'M</span>
+                    <h1>Nur Aulia Karisma Dewi</h1>
+                    <h2>I Ensure Quality That<br>Makes an <span>Impact.</span></h2>
+                    <p>A seasoned Quality Assurance professional focused on delivering robust, bug-free, and user-friendly digital products. From manual exploration to automated scripts, I protect your user experience.</p>
+                    <div class="hero-buttons">
+                        <a href="#portfolio-section" class="btn-primary">View My Work <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="Modul/youtube.html" class="btn-secondary"><i class="fa-solid fa-play"></i> Watch Intro</a>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <div class="gradient-circle"></div>
+                    <img src="Asset_img_Thubnile/Foto Nur Aulia Karisma Dewi Full Body.png" alt="Nur Aulia Karisma Dewi">
+                    <div class="experience-badge">
+                        <h3>5+</h3>
+                        <p>Years of Experience</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- QA Tools Section -->
+            <div class="qa-tools-section reveal">
+                <p>QA Tools & Technologies I Use</p>
+                <div class="tools-grid">
+                    <div class="tool-badge"><i class="fa-solid fa-cube"></i> Cypress</div>
+                    <div class="tool-badge"><i class="fa-solid fa-robot"></i> Selenium</div>
+                    <div class="tool-badge"><i class="fa-solid fa-gauge-high"></i> JMeter</div>
+                    <div class="tool-badge"><i class="fa-solid fa-paper-plane"></i> Postman</div>
+                    <div class="tool-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Playwright</div>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <section class="services-section" id="services">
+                <div class="section-header reveal">
+                    <span class="sub-title">WHAT I DO</span>
+                    <h2>Services I Offer</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card reveal">
+                        <div class="icon-box"><i class="fa-solid fa-circle-check"></i></div>
+                        <h3>Manual Testing</h3>
+                        <p>Designing intuitive test cases and exploring user flows to catch UI/UX anomalies.</p>
+                        <a href="#contact">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="icon-box"><i class="fa-solid fa-code"></i></div>
+                        <h3>Automated Testing</h3>
+                        <p>Building fast, responsive, and reliable automated test scripts for efficiency.</p>
+                        <a href="#contact">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="icon-box"><i class="fa-solid fa-server"></i></div>
+                        <h3>API Testing</h3>
+                        <p>Ensuring seamless backend communication and data integrity using Postman/REST Assured.</p>
+                        <a href="#contact">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="icon-box"><i class="fa-solid fa-bug"></i></div>
+                        <h3>Bug Management</h3>
+                        <p>Tracking, isolating, and reporting issues clearly using tools like Jira or Trello.</p>
+                        <a href="#contact">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar reveal">
+                <div class="stat-item">
+                    <i class="fa-regular fa-newspaper"></i>
+                    <div class="stat-info">
+                        <h3>80+</h3>
+                        <p>Articles Published</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <div class="stat-info">
+                        <h3>120+</h3>
+                        <p>Test Cases Automated</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <div class="stat-info">
+                        <h3>5+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-trophy"></i>
+                    <div class="stat-info">
+                        <h3>15+</h3>
+                        <p>Certifications</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT SECTIONS (Portfolio, Articles, YouTube, Certifications) -->
+            <div class="content-sections">
+                
+                <!-- 1. My Portfolio -->
+                <section class="projects-section" id="portfolio-section">
+                    <div class="section-header space-between reveal">
+                        <div>
+                            <span class="sub-title">PORTFOLIO</span>
+                            <h2>Featured Projects</h2>
+                        </div>
+                        <a href="Modul/portfolio.html" class="view-all">View All Projects <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="projects-grid" id="homeProjectsGrid">
+                        <!-- Populated dynamically by portofolio-data.js -->
+                    </div>
+                </section>
+
+                <!-- 2. My Articles -->
+                <section class="projects-section" style="margin-top: 50px;">
+                    <div class="section-header space-between reveal">
+                        <div>
+                            <span class="sub-title">ARTICLES</span>
+                            <h2>My Articles Published</h2>
+                        </div>
+                        <a href="Modul/article.html" class="view-all">View All Articles <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="projects-grid" id="homeArticlesGrid">
+                        <!-- Populated dynamically by articles-data.js -->
+                    </div>
+                </section>
+
+                <!-- 3. My YouTube Channel -->
+                <section class="projects-section" style="margin-top: 50px;">
+                    <div class="section-header space-between reveal">
+                        <div>
+                            <span class="sub-title">YOUTUBE</span>
+                            <h2>My Channel Videos</h2>
+                        </div>
+                        <a href="Modul/youtube.html" class="view-all">View All Videos <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="projects-grid" id="homeVideosGrid">
+                        <!-- Populated dynamically by youtube-data.js -->
+                    </div>
+                </section>
+
+                <!-- 4. My Certifications -->
+                <section class="projects-section" style="margin-top: 50px; margin-bottom: 50px;">
+                    <div class="section-header space-between reveal">
+                        <div>
+                            <span class="sub-title">ACHIEVEMENTS</span>
+                            <h2>My Certifications</h2>
+                        </div>
+                        <a href="Modul/certificate.html" class="view-all">View All Certifications <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="projects-grid" id="homeCertGrid">
+                        <!-- Populated dynamically by certificates-data.js -->
+                    </div>
+                </section>
+
+                <!-- MODAL POPUP PREVIEW SERTIFIKAT (LIGHTBOX SLIDER) -->
+                <div id="certModal" class="cert-modal">
+                    <!-- Close Button (Top-Right Screen Corner) -->
+                    <button class="cert-close-btn" id="certCloseBtn" aria-label="Close modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    
+                    <!-- Left Navigation Arrow -->
+                    <button class="cert-nav-arrow prev" id="certPrevBtn" aria-label="Previous Certificate Image">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <!-- Center Image Container -->
+                    <div class="cert-img-wrapper">
+                        <img class="cert-modal-img" id="modalImg" alt="Certificate Preview" src="">
+                    </div>
+
+                    <!-- Right Navigation Arrow -->
+                    <button class="cert-nav-arrow next" id="certNextBtn" aria-label="Next Certificate Image">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <!-- Bottom Page Indicator -->
+                    <div class="cert-page-indicator" id="certPageIndicator">
+                        <span id="certCurrentPage">1</span> / <span id="certTotalPages">2</span>
+                    </div>
+                </div>
+
+                <!-- Footer / Contact Section -->
+                <footer class="footer-section reveal" id="contact">
+                    <div class="footer-card">
+                        <!-- Left Box: Banner -->
+                        <div class="footer-left">
+                            <div class="footer-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                            <h3>Let's Work Together!</h3>
+                            <p>Have a project in mind?<br>Let's create something great together.</p>
+                        </div>
+
+                        <!-- Middle Box: Form Input -->
+                        <div class="footer-middle">
+                            <form action="https://formspree.io/f/mgawqggy" method="POST" target="_blank">
+                                <div class="form-row">
+                                    <input type="text" name="name" placeholder="Your Name" required>
+                                    <input type="email" name="email" placeholder="Your Email" required>
+                                </div>
+                                <div class="form-row">
+                                    <textarea name="message" placeholder="Your Message" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-send">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+
+                        <!-- Right Box: Contact Info -->
+                        <div class="footer-right">
+                            <div class="info-item">
+                                <i class="fa-solid fa-envelope"></i>
+                                <div>
+                                    <span>Email</span>
+                                    <p><a href="mailto:auliakarismadewi@gmail.com" style="color: inherit; text-decoration: none;">auliakarismadewi@gmail.com</a></p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fa-brands fa-discord"></i>
+                                <div>
+                                    <span>Discord</span>
+                                    <p>aulia_karisma.d</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <span>Location</span>
+                                    <p>Jakarta Pusat, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+                <!-- RUNNING QA QUOTES MARQUEE FOOTER -->
+                <footer class="qa-marquee-footer reveal">
+                    <div class="marquee-wrapper">
+                        <div class="marquee-track">
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-quote-left marquee-icon"></i>
+                                <span class="marquee-quote">"Quality is not an act, it is a habit."</span>
+                                <span class="marquee-author">— Aristotle</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-certificate"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-bug-slash marquee-icon"></i>
+                                <span class="marquee-quote">"Testing does not prove the absence of bugs, only their presence."</span>
+                                <span class="marquee-author">— Edsger W. Dijkstra</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-bolt"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-wand-magic-sparkles marquee-icon"></i>
+                                <span class="marquee-quote">"Quality is never an accident; it is always the result of intelligent effort."</span>
+                                <span class="marquee-author">— John Ruskin</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-robot marquee-icon"></i>
+                                <span class="marquee-quote">"Automate the predictable, explore the exceptional."</span>
+                                <span class="marquee-author">— QA Philosophy</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-certificate"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-bullseye marquee-icon"></i>
+                                <span class="marquee-quote">"Test early, test often, deliver with rock-solid confidence."</span>
+                                <span class="marquee-author">— Quality Engineering</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-bolt"></i></div>
+                            
+                            <!-- Duplicate Items for Seamless Infinite Loop -->
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-quote-left marquee-icon"></i>
+                                <span class="marquee-quote">"Quality is not an act, it is a habit."</span>
+                                <span class="marquee-author">— Aristotle</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-certificate"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-bug-slash marquee-icon"></i>
+                                <span class="marquee-quote">"Testing does not prove the absence of bugs, only their presence."</span>
+                                <span class="marquee-author">— Edsger W. Dijkstra</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-bolt"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-wand-magic-sparkles marquee-icon"></i>
+                                <span class="marquee-quote">"Quality is never an accident; it is always the result of intelligent effort."</span>
+                                <span class="marquee-author">— John Ruskin</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-robot marquee-icon"></i>
+                                <span class="marquee-quote">"Automate the predictable, explore the exceptional."</span>
+                                <span class="marquee-author">— QA Philosophy</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-certificate"></i></div>
+                            <div class="marquee-item">
+                                <i class="fa-solid fa-bullseye marquee-icon"></i>
+                                <span class="marquee-quote">"Test early, test often, deliver with rock-solid confidence."</span>
+                                <span class="marquee-author">— Quality Engineering</span>
+                            </div>
+                            <div class="marquee-separator"><i class="fa-solid fa-bolt"></i></div>
+                        </div>
+                    </div>
+
+                    <div class="footer-bottom-bar">
+                        <p>© 2026 <strong>Nur Aulia Karisma Dewi</strong> • Quality Assurance Engineer • Built with Quality & Precision</p>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- DYNAMIC PROJECT DETAIL MODAL (EXECUTIVE & FORMAL) -->
+    <div id="projectDetailModal" class="modal-overlay" onclick="outsideClose(event, 'projectDetailModal')">
+        <div class="modal-container project-detail-modal-container">
+            <!-- Header -->
+            <div class="project-modal-header">
+                <div class="modal-header-info">
+                    <span id="modalProjectTag" class="modal-badge-tag">Dashboard</span>
+                    <h3 id="modalProjectTitle">Detail Proyek</h3>
+                </div>
+                <button class="modal-close" onclick="closeModal('projectDetailModal')" aria-label="Tutup">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body (Formal Two-Column Grid & Preview Banner) -->
+            <div class="project-modal-body">
+                <!-- Preview Visual Banner -->
+                <div id="modalProjectBanner" class="project-banner-preview bg-a1">
+                    <div class="banner-overlay">
+                        <div class="banner-badge">
+                            <i class="fa-solid fa-shield-check"></i> QA Verified Project
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Headline Info -->
+                <div class="project-headline">
+                    <h2 id="modalProjectName" class="project-formal-title">Dealer & Client Monitoring Dashboard</h2>
+                </div>
+
+                <!-- Structured Grid Details -->
+                <div class="project-info-grid">
+                    <!-- Left: Description & Tech Stack -->
+                    <div class="project-main-col">
+                        <div class="info-section">
+                            <h4 class="section-label"><i class="fa-solid fa-align-left"></i> Ringkasan & Ruang Lingkup Proyek</h4>
+                            <p id="modalProjectDesc" class="formal-desc-text"></p>
+                        </div>
+
+                        <div class="info-section">
+                            <h4 class="section-label"><i class="fa-solid fa-code"></i> Teknologi & Tools Terintegrasi</h4>
+                            <div class="modal-tech-badges" id="modalProjectTech"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Metadata Specs Box -->
+                    <div class="project-side-col">
+                        <div class="formal-specs-card">
+                            <h4 class="specs-heading"><i class="fa-solid fa-list-check"></i> Spesifikasi Proyek</h4>
+                            
+                            <div class="spec-row">
+                                <span class="spec-name"><i class="fa-solid fa-user-gear"></i> Peran / Role</span>
+                                <strong id="modalProjectRole" class="spec-val">-</strong>
+                            </div>
+
+                            <div class="spec-row">
+                                <span class="spec-name"><i class="fa-regular fa-calendar-check"></i> Durasi Waktu</span>
+                                <strong id="modalProjectDuration" class="spec-val">-</strong>
+                            </div>
+
+                            <div class="spec-row">
+                                <span class="spec-name"><i class="fa-solid fa-layer-group"></i> Kategori</span>
+                                <strong id="modalProjectCategory" class="spec-val">-</strong>
+                            </div>
+
+                            <div class="spec-row">
+                                <span class="spec-name"><i class="fa-solid fa-circle-check"></i> Status Rilis</span>
+                                <span class="status-verified-pill"><i class="fa-solid fa-check"></i> Terverifikasi QA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="project-modal-footer">
+                <span class="footer-note"><i class="fa-solid fa-circle-info"></i> Seluruh modul dan spesifikasi diuji dengan standar kualitas QA profesional.</span>
+                <button class="btn-formal-close" onclick="closeModal('projectDetailModal')">
+                    Tutup Detail <i class="fa-solid fa-check"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATA SCRIPTS -->
+    <script src="Data/portofolio-data.js"></script>
+    <script src="Data/articles-data.js"></script>
+    <script src="Data/youtube-data.js"></script>
+    <script src="Data/certificates-data.js"></script>
+    <!-- GLOBAL MAIN SCRIPT -->
+    <script src="main.js"></script>
+</body>
+</html>
