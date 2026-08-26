@@ -25,32 +25,5 @@ const articlesData = [
     url: "https://medium.com/@nurauliakarismadewi/jenis-jenis-software-testing-biar-aplikasi-gak-bikin-user-bt-1177c0eec422?sharedUserId=nurauliakarismadewi",
     bgClass: "bg-a3",
     imgUrl: "../Medium/Materi1.png"
-  },
-  {
-    id: 4,
-    tag: "Career",
-    title: "QA Career Transition",
-    description: "Langkah-langkah strategis beralih karier menjadi Software QA Engineer profesional.",
-    url: "https://medium.com/@nurauliakarismadewi",
-    bgClass: "bg-a4",
-    imgUrl: ""
-  },
-  {
-    id: 5,
-    tag: "API",
-    title: "RESTful API Validation",
-    description: "Verifikasi response status code, payload contract, and latency secara akurat.",
-    url: "https://medium.com/@nurauliakarismadewi",
-    bgClass: "bg-a1",
-    imgUrl: ""
-  },
-  {
-    id: 6,
-    tag: "Testing",
-    title: "Selenium WebDriver Basics",
-    description: "Getting started with automation testing using Java and Selenium framework.",
-    url: "https://medium.com/@nurauliakarismadewi",
-    bgClass: "bg-a2",
-    imgUrl: ""
   }
 ];

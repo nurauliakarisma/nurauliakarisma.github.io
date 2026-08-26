@@ -34,7 +34,7 @@
             <ul class="nav-links">
                 <li class="active"><a href="index.html" data-tooltip="Home"><i class="fa-solid fa-house"></i> Home</a></li>
                 <li><a href="Modul/about.html" data-tooltip="About"><i class="fa-solid fa-user"></i> About</a></li>
-                <li><a href="#services" data-tooltip="Services"><i class="fa-solid fa-layer-group"></i> Services</a></li>
+                <li><a href="Modul/project.html" data-tooltip="Projects"><i class="fa-solid fa-list-check"></i> Projects</a></li>
                 <li><a href="Modul/portfolio.html" data-tooltip="Portfolio"><i class="fa-solid fa-briefcase"></i> Portfolio</a></li>
                 <li><a href="Modul/youtube.html" data-tooltip="YouTube"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
                 <li><a href="Modul/article.html" data-tooltip="Article"><i class="fa-solid fa-newspaper"></i> Article</a></li>
@@ -101,7 +101,7 @@
                     <div class="gradient-circle"></div>
                     <img src="Asset_img_Thubnile/Foto Nur Aulia Karisma Dewi Full Body.png" alt="Nur Aulia Karisma Dewi">
                     <div class="experience-badge">
-                        <h3>5+</h3>
+                        <h3>1,5+</h3>
                         <p>Years of Experience</p>
                     </div>
                 </div>
@@ -185,24 +185,52 @@
                 </div>
             </div>
 
-            <!-- CONTENT SECTIONS (Portfolio, Articles, YouTube, Certifications) -->
+            <!-- CONTENT SECTIONS (Handled Projects, Personal Portfolio, Certifications, Articles, YouTube) -->
             <div class="content-sections">
                 
-                <!-- 1. My Portfolio -->
-                <section class="projects-section" id="portfolio-section">
+                <!-- 1. Handled Projects -->
+                <section class="projects-section" id="projects-section">
+                    <div class="section-header space-between reveal">
+                        <div>
+                            <span class="sub-title">HANDLED PROJECTS</span>
+                            <h2>Featured Projects</h2>
+                        </div>
+                        <a href="Modul/project.html" class="view-all">View All Projects <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="projects-grid" id="homeProjectsGrid">
+                        <!-- Populated dynamically by projects-data.js -->
+                    </div>
+                </section>
+
+                <!-- 2. Personal Portfolio -->
+                <section class="projects-section" id="portfolio-section" style="margin-top: 50px;">
                     <div class="section-header space-between reveal">
                         <div>
                             <span class="sub-title">PORTFOLIO</span>
-                            <h2>Featured Projects</h2>
+                            <h2>Personal Portfolio</h2>
                         </div>
-                        <a href="Modul/portfolio.html" class="view-all">View All Projects <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="Modul/portfolio.html" class="view-all">View All Portfolio <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
-                    <div class="projects-grid" id="homeProjectsGrid">
+                    <div class="projects-grid" id="homePortfolioGrid">
                         <!-- Populated dynamically by portofolio-data.js -->
                     </div>
                 </section>
 
-                <!-- 2. My Articles -->
+                <!-- 3. My Certifications -->
+                <section class="projects-section" style="margin-top: 50px;">
+                    <div class="section-header space-between reveal">
+                        <div>
+                            <span class="sub-title">ACHIEVEMENTS</span>
+                            <h2>My Certifications</h2>
+                        </div>
+                        <a href="Modul/certificate.html" class="view-all">View All Certifications <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="projects-grid" id="homeCertGrid">
+                        <!-- Populated dynamically by certificates-data.js -->
+                    </div>
+                </section>
+
+                <!-- 4. My Articles -->
                 <section class="projects-section" style="margin-top: 50px;">
                     <div class="section-header space-between reveal">
                         <div>
@@ -216,8 +244,8 @@
                     </div>
                 </section>
 
-                <!-- 3. My YouTube Channel -->
-                <section class="projects-section" style="margin-top: 50px;">
+                <!-- 5. My YouTube Channel -->
+                <section class="projects-section" style="margin-top: 50px; margin-bottom: 50px;">
                     <div class="section-header space-between reveal">
                         <div>
                             <span class="sub-title">YOUTUBE</span>
@@ -227,20 +255,6 @@
                     </div>
                     <div class="projects-grid" id="homeVideosGrid">
                         <!-- Populated dynamically by youtube-data.js -->
-                    </div>
-                </section>
-
-                <!-- 4. My Certifications -->
-                <section class="projects-section" style="margin-top: 50px; margin-bottom: 50px;">
-                    <div class="section-header space-between reveal">
-                        <div>
-                            <span class="sub-title">ACHIEVEMENTS</span>
-                            <h2>My Certifications</h2>
-                        </div>
-                        <a href="Modul/certificate.html" class="view-all">View All Certifications <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                    <div class="projects-grid" id="homeCertGrid">
-                        <!-- Populated dynamically by certificates-data.js -->
                     </div>
                 </section>
 
@@ -485,6 +499,7 @@
     </div>
 
     <!-- DATA SCRIPTS -->
+    <script src="Data/projects-data.js"></script>
     <script src="Data/portofolio-data.js"></script>
     <script src="Data/articles-data.js"></script>
     <script src="Data/youtube-data.js"></script>

@@ -1,59 +1,61 @@
-const portfolioData = [
+﻿const portfolioData = [
   {
     id: 1,
-    tag: "Dashboard",
-    title: "Dealer Monitoring System",
-    description: "Custom monitoring dashboard with PHP, MySQL, React, and Google Apps Script.",
+    tag: "Automation",
+    title: "Cypress BDD Test Framework",
+    description: "Personal test automation framework using Cypress, Cucumber BDD, and Mochawesome reporting.",
     bgClass: "bg-a1",
     imgUrl: "",
-    detailName: "Dealer & Client Monitoring Dashboard",
-    detailDesc: "Membangun sistem dasbor pemantauan kustom untuk memantau performa dealer secara real-time, terintegrasi dengan pengelolaan basis data dan otomatisasi pelaporan.",
-    tech: ["HTML", "PHP", "MySQL", "React JSX", "Google Apps Script"],
-    role: "Fullstack Developer & QA Support",
-    duration: "3 Bulan (2026)"
+    detailName: "Cypress Cucumber BDD Test Framework",
+    detailDesc: "Framework pengujian otomasi berbasis Behavior-Driven Development (BDD) dengan Cypress dan Gherkin syntax, dirancang untuk memudahkan kolaborasi antara QA, Developer, dan Product Owner.",
+    tech: ["Cypress", "Cucumber BDD", "JavaScript", "Mochawesome"],
+    role: "QA Automation Creator",
+    duration: "Personal Project (2026)"
   },
   {
     id: 2,
-    tag: "Automation",
-    title: "E2E Test Automation Suite",
-    description: "Automated test scripts using Selenium WebDriver, Mocha, and GitHub Actions.",
+    tag: "API Testing",
+    title: "Postman API Automation Suite",
+    description: "Automated API regression suite with Newman CLI and CI/CD integration.",
     bgClass: "bg-a2",
     imgUrl: "",
-    detailName: "E2E Test Automation Suite",
-    detailDesc: "Perancangan dan implementasi kerangka kerja pengujian end-to-end otomatis guna meminimalisir waktu regresi pengujian perangkat lunak web.",
-    tech: ["Selenium WebDriver", "Mocha", "Postman", "GitHub Actions"],
-    role: "QA Automation Engineer",
-    duration: "2 Bulan"
+    detailName: "Postman REST API Automation Suite",
+    detailDesc: "Kumpulan skenario pengujian API otomatis lengkap dengan assertion dinamis, environment variables, chaining requests, dan integrasi runner Newman.",
+    tech: ["Postman", "Newman", "JavaScript", "RESTful API"],
+    role: "API QA Specialist",
+    duration: "Personal Project (2026)"
   },
   {
     id: 3,
-    tag: "Quality Control",
-    title: "Enterprise QC Testing",
-    description: "Comprehensive system testing and quality assurance at PT Traspac Makmur Sejahtera.",
+    tag: "Web Testing",
+    title: "Playwright Cross-Browser Suite",
+    description: "High-speed modern end-to-end testing across Chromium, Firefox, and WebKit.",
     bgClass: "bg-a3",
     imgUrl: "",
-    detailName: "Enterprise Quality Control Testing",
-    detailDesc: "Pelaksanaan pengujian sistem secara komprehensif untuk memastikan seluruh modul aplikasi siap digunakan oleh klien perusahaan tanpa celah bug mayor.",
-    tech: ["Manual Testing", "Bug Tracking Tools", "Test Scenario Planning"],
-    role: "Quality Control Professional",
-    duration: "Pengalaman Profesional"
+    detailName: "Playwright Cross-Browser Testing Suite",
+    detailDesc: "Implementasi pengujian lintas peramban berkecepatan tinggi dengan auto-waiting, visual regression testing, dan parallel test execution.",
+    tech: ["Playwright", "TypeScript", "HTML Report"],
+    role: "QA Engineer",
+    duration: "Personal Project (2026)"
   },
   {
     id: 4,
-    tag: "Dashboard",
-    title: "Client Operations Dashboard",
-    description: "Real-time analytics and reporting dashboard built with modern frontend frameworks.",
+    tag: "Mobile QA",
+    title: "Android Mobile App Test Suite",
+    description: "Mobile automation and UI testing for Android applications using Appium.",
     bgClass: "bg-a4",
     imgUrl: "",
-    detailName: "Client Operations Dashboard",
-    detailDesc: "Pembuatan dasbor analitik operasional klien untuk memantau performa harian dan metrik bisnis utama secara terpusat.",
-    tech: ["React", "Tailwind CSS", "JavaScript"],
-    role: "Frontend Developer",
-    duration: "1.5 Bulan"
+    detailName: "Android Mobile App Test Automation",
+    detailDesc: "Skenario otomasi pengujian aplikasi Android mencakup uji gestur, verifikasi alur transaksi, dan penanganan status jaringan dinamis.",
+    tech: ["Appium", "Android SDK", "Java / Kotlin", "UiAutomator2"],
+    role: "Mobile QA Engineer",
+    duration: "Personal Project (2026)"
   }
 ];
 
-// Fallback alias jika diakses dengan nama portofolioData
+if (typeof personalPortfolioData === 'undefined') {
+  var personalPortfolioData = portfolioData;
+}
 if (typeof portofolioData === 'undefined') {
   var portofolioData = portfolioData;
 }

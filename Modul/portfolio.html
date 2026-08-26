@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Nur Aulia Karisma Dewi</title>
+    <title>Personal Portfolio - Nur Aulia Karisma Dewi</title>
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons CDN -->
@@ -34,7 +34,7 @@
             <ul class="nav-links">
                 <li><a href="../index.html" data-tooltip="Home"><i class="fa-solid fa-house"></i> Home</a></li>
                 <li><a href="about.html" data-tooltip="About"><i class="fa-solid fa-user"></i> About</a></li>
-                <li><a href="../index.html#services" data-tooltip="Services"><i class="fa-solid fa-layer-group"></i> Services</a></li>
+                <li><a href="project.html" data-tooltip="Projects"><i class="fa-solid fa-list-check"></i> Projects</a></li>
                 <li class="active"><a href="portfolio.html" data-tooltip="Portfolio"><i class="fa-solid fa-briefcase"></i> Portfolio</a></li>
                 <li><a href="youtube.html" data-tooltip="YouTube"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
                 <li><a href="article.html" data-tooltip="Article"><i class="fa-solid fa-newspaper"></i> Article</a></li>
@@ -80,7 +80,7 @@
                         <a href="about.html">About</a>
                         <a href="youtube.html">Youtube</a>
                         <a href="article.html">Article</a>
-                        <a href="portfolio.html" class="active">Portfolio</a>
+                        <a href="certificate.html">Certificate</a>
                     </nav>
                     <a href="../index.html#contact" class="btn-lets-talk">Let's Talk <i class="fa-solid fa-paper-plane"></i></a>
                 </div>
@@ -90,14 +90,14 @@
             <div style="margin-bottom: 30px;" class="reveal">
                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                     <div style="height: 1px; background: rgba(6, 182, 212, 0.4); flex: 1;"></div>
-                    <span style="color: var(--cyan-light); font-size: 11px; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">FEATURED PROJECTS</span>
+                    <span style="color: var(--cyan-light); font-size: 11px; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">PERSONAL PORTFOLIO</span>
                     <div style="height: 1px; background: rgba(6, 182, 212, 0.4); flex: 1;"></div>
                 </div>
                 <h1 style="font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 8px; background: linear-gradient(135deg, #ffffff, #a5f3fc, var(--accent-yellow)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    My QA & Development Works
+                    My Personal Portfolio & Showcase
                 </h1>
                 <p style="color: var(--text-muted); text-align: center; font-size: 13px;">
-                    Daftar proyek dan sistem yang pernah diuji serta dikembangkan dengan standar kualitas tinggi.
+                    Koleksi portofolio pribadi, kerangka kerja pengujian otomasi, dan eksplorasi teknologi QA.
                 </p>
             </div>
 
@@ -105,7 +105,7 @@
             <div class="article-controls reveal">
                 <div class="search-box">
                     <i class="fa-solid fa-search"></i>
-                    <input type="text" id="projectSearch" placeholder="Cari proyek...">
+                    <input type="text" id="portfolioSearch" placeholder="Cari portofolio...">
                 </div>
                 <button class="mobile-filter-btn" aria-label="Toggle Filter" title="Filter">
                     <i class="fa-solid fa-sliders"></i>
@@ -114,13 +114,14 @@
                 <div class="filter-tags">
                     <button class="tag-btn active" data-filter="all">All</button>
                     <button class="tag-btn" data-filter="Automation">Automation</button>
-                    <button class="tag-btn" data-filter="Dashboard">Dashboard</button>
-                    <button class="tag-btn" data-filter="Quality Control">Quality Control</button>
+                    <button class="tag-btn" data-filter="API Testing">API Testing</button>
+                    <button class="tag-btn" data-filter="Web Testing">Web Testing</button>
+                    <button class="tag-btn" data-filter="Mobile QA">Mobile QA</button>
                 </div>
             </div>
 
-            <!-- PROJECTS GRID -->
-            <div class="projects-grid" id="projectsGrid">
+            <!-- PORTFOLIO GRID -->
+            <div class="projects-grid" id="portfolioGrid">
                 <!-- Populated dynamically by portofolio-data.js -->
             </div>
 
@@ -286,6 +287,7 @@
     </div>
 
     <!-- DATA SCRIPTS -->
+    <script src="../Data/projects-data.js"></script>
     <script src="../Data/portofolio-data.js"></script>
     <!-- GLOBAL SCRIPT -->
     <script src="../main.js"></script>

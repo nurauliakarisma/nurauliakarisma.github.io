@@ -81,21 +81,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =============================================================
-    // 1.4. DYNAMIC PORTFOLIO PROJECTS RENDERING (From Data/portofolio-data.js)
+    // 1.4. DYNAMIC HANDLED PROJECTS RENDERING (From Data/projects-data.js)
     // =============================================================
-    function renderPortfolioCards() {
-        const portData = (typeof portofolioData !== 'undefined' && Array.isArray(portofolioData)) 
-            ? portofolioData 
-            : ((typeof portfolioData !== 'undefined' && Array.isArray(portfolioData)) ? portfolioData : null);
+    function renderProjectsCards() {
+        const projDataRaw = (typeof projectsData !== 'undefined' && Array.isArray(projectsData)) 
+            ? projectsData 
+            : ((typeof handledProjectsData !== 'undefined' && Array.isArray(handledProjectsData)) ? handledProjectsData : null);
 
-        if (!portData) return;
+        if (!projDataRaw) return;
+
+        // Urutkan dari proyek terbaru ke terlama (ID terbesar / terakhir di atas)
+        const projData = [...projDataRaw].sort((a, b) => (b.id || 0) - (a.id || 0));
 
         const homeProjectsGrid = document.getElementById('homeProjectsGrid');
         const projectsGrid = document.getElementById('projectsGrid');
 
         if (homeProjectsGrid) {
-            // Render top 4 projects for Home page (index.html) with direct Detail Modal popup
-            const homeItems = portData.slice(0, 4);
+            // Render 4 proyek terbaru untuk Beranda (index.html)
+            const homeItems = projData.slice(0, 4);
             homeProjectsGrid.innerHTML = homeItems.map(item => {
                 let imgStyle = '';
                 if (item.imgUrl && item.imgUrl.trim() !== '') {
@@ -103,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
                 }
                 return `
-                    <div class="project-card glow-card reveal" data-tag="${item.tag || 'Project'}" onclick="openProjectDetailModal(${item.id})" style="cursor: pointer;">
+                    <div class="project-card glow-card reveal" data-tag="${item.tag || 'Project'}" onclick="openProjectDetailModal(${item.id}, 'project')" style="cursor: pointer;">
                         <div class="project-img ${item.bgClass || 'bg-p1'}" ${imgStyle}></div>
                         <span class="tag">${item.tag || 'Project'}</span>
                         <h3>${item.title || ''}</h3>
@@ -114,17 +117,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (projectsGrid) {
-            // Render all projects for Portfolio module page (Modul/portfolio.html)
-            projectsGrid.innerHTML = portData.map(item => {
+            // Render seluruh proyek dari terbaru ke terlama (Modul/project.html)
+            projectsGrid.innerHTML = projData.map(item => {
                 let imgStyle = '';
                 if (item.imgUrl && item.imgUrl.trim() !== '') {
                     const cleanPath = item.imgUrl.startsWith('../') ? item.imgUrl : `../${item.imgUrl}`;
                     imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
                 }
                 return `
-                    <div class="project-card glow-card" data-tag="${item.tag || 'Project'}" onclick="openProjectDetailModal(${item.id})" style="cursor: pointer;">
+                    <div class="project-card glow-card" data-tag="${item.tag || 'Project'}" onclick="openProjectDetailModal(${item.id}, 'project')" style="cursor: pointer;">
                         <div class="project-img ${item.bgClass || 'bg-a1'}" ${imgStyle}></div>
                         <span class="tag">${item.tag || 'Project'}</span>
+                        <h3>${item.title || ''}</h3>
+                        <p>${item.description || ''}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    renderProjectsCards();
+
+    // =============================================================
+    // 1.4.1. DYNAMIC PERSONAL PORTFOLIO RENDERING (From Data/portofolio-data.js)
+    // =============================================================
+    function renderPortfolioCards() {
+        const portDataRaw = (typeof portfolioData !== 'undefined' && Array.isArray(portfolioData)) 
+            ? portfolioData 
+            : ((typeof personalPortfolioData !== 'undefined' && Array.isArray(personalPortfolioData)) 
+                ? personalPortfolioData 
+                : ((typeof portofolioData !== 'undefined' && Array.isArray(portofolioData)) ? portofolioData : null));
+
+        if (!portDataRaw) return;
+
+        // Urutkan dari portofolio terbaru ke terlama (ID terbesar / terakhir di atas)
+        const portData = [...portDataRaw].sort((a, b) => (b.id || 0) - (a.id || 0));
+
+        const homePortfolioGrid = document.getElementById('homePortfolioGrid');
+        const portfolioGrid = document.getElementById('portfolioGrid');
+
+        if (homePortfolioGrid) {
+            // Render 4 portofolio personal terbaru untuk Beranda (index.html)
+            const homeItems = portData.slice(0, 4);
+            homePortfolioGrid.innerHTML = homeItems.map(item => {
+                let imgStyle = '';
+                if (item.imgUrl && item.imgUrl.trim() !== '') {
+                    const cleanPath = item.imgUrl.replace(/^\.\.\//, '');
+                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
+                }
+                return `
+                    <div class="project-card glow-card reveal" data-tag="${item.tag || 'Portfolio'}" onclick="openProjectDetailModal(${item.id}, 'portfolio')" style="cursor: pointer;">
+                        <div class="project-img ${item.bgClass || 'bg-p2'}" ${imgStyle}></div>
+                        <span class="tag">${item.tag || 'Portfolio'}</span>
+                        <h3>${item.title || ''}</h3>
+                        <p>${item.description || ''}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        if (portfolioGrid) {
+            // Render seluruh portofolio personal dari terbaru ke terlama (Modul/portfolio.html)
+            portfolioGrid.innerHTML = portData.map(item => {
+                let imgStyle = '';
+                if (item.imgUrl && item.imgUrl.trim() !== '') {
+                    const cleanPath = item.imgUrl.startsWith('../') ? item.imgUrl : `../${item.imgUrl}`;
+                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
+                }
+                return `
+                    <div class="project-card glow-card" data-tag="${item.tag || 'Portfolio'}" onclick="openProjectDetailModal(${item.id}, 'portfolio')" style="cursor: pointer;">
+                        <div class="project-img ${item.bgClass || 'bg-a2'}" ${imgStyle}></div>
+                        <span class="tag">${item.tag || 'Portfolio'}</span>
                         <h3>${item.title || ''}</h3>
                         <p>${item.description || ''}</p>
                     </div>
@@ -141,12 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderArticleCards() {
         if (typeof articlesData === 'undefined' || !Array.isArray(articlesData)) return;
 
+        // Urutkan dari artikel terbaru ke terlama (ID terbesar / terakhir di atas)
+        const sortedArticles = [...articlesData].sort((a, b) => (b.id || 0) - (a.id || 0));
+
         const homeArticlesGrid = document.getElementById('homeArticlesGrid');
         const articlesGrid = document.getElementById('articlesGrid');
 
         if (homeArticlesGrid) {
-            // Render top 4 articles for Home page (index.html)
-            const homeItems = articlesData.slice(0, 4);
+            // Render 4 artikel terbaru untuk Beranda (index.html)
+            const homeItems = sortedArticles.slice(0, 4);
             homeArticlesGrid.innerHTML = homeItems.map(article => {
                 let imgStyle = '';
                 if (article.imgUrl && article.imgUrl.trim() !== '') {
@@ -165,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (articlesGrid) {
-            // Render all articles for Articles page (Modul/article.html)
-            articlesGrid.innerHTML = articlesData.map(article => {
+            // Render seluruh artikel dari terbaru ke terlama (Modul/article.html)
+            articlesGrid.innerHTML = sortedArticles.map(article => {
                 let imgStyle = '';
                 if (article.imgUrl && article.imgUrl.trim() !== '') {
                     const cleanPath = article.imgUrl.startsWith('../') ? article.imgUrl : `../${article.imgUrl}`;
@@ -189,25 +255,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // =============================================================
     // 1.6. DYNAMIC YOUTUBE VIDEOS RENDERING (From Data/youtube-data.js)
     // =============================================================
+    function getYouTubeThumbnail(url) {
+        if (!url) return '';
+        const regExp = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/;
+        const match = url.match(regExp);
+        return match && match[1] ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : '';
+    }
+
     function renderVideoCards() {
         if (typeof videosData === 'undefined' || !Array.isArray(videosData)) return;
+
+        // Urutkan dari video terbaru ke terlama (ID terbesar / terakhir di atas)
+        const sortedVideos = [...videosData].sort((a, b) => (b.id || 0) - (a.id || 0));
 
         const homeVideosGrid = document.getElementById('homeVideosGrid');
         const videosGrid = document.getElementById('videosGrid');
 
         if (homeVideosGrid) {
-            // Tampilkan 4 data video terakhir yang di-input (urutan terbaru / reversed)
-            const latestVideos = [...videosData].slice(-4).reverse();
-            homeVideosGrid.innerHTML = latestVideos.map(video => {
+            // Tampilkan 4 data video terbaru untuk Beranda (index.html)
+            const homeItems = sortedVideos.slice(0, 4);
+            homeVideosGrid.innerHTML = homeItems.map(video => {
+                const autoThumb = getYouTubeThumbnail(video.url);
+                const rawImg = video.imgUrl || autoThumb;
                 let imgStyle = '';
-                if (video.imgUrl && video.imgUrl.trim() !== '') {
-                    const cleanPath = video.imgUrl.replace(/^\.\.\//, '');
+                if (rawImg && rawImg.trim() !== '') {
+                    const cleanPath = (rawImg.startsWith('http') || rawImg.startsWith('//')) ? rawImg : rawImg.replace(/^\.\.\//, '');
                     imgStyle = `background-image: url('${cleanPath}'); background-size: cover; background-position: center;`;
                 }
                 return `
                     <a href="${video.url || 'Modul/youtube.html'}" target="_blank" class="project-card glow-card reveal" data-tag="${video.tag || 'Video'}">
-                        <div class="project-img ${video.bgClass || 'bg-a1'}" style="display: flex; align-items: center; justify-content: center; ${imgStyle}">
-                            <i class="fa-brands fa-youtube" style="font-size: 38px; color: #FFFFFF; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));"></i>
+                        <div class="project-img ${video.bgClass || 'bg-a1'}" style="display: flex; align-items: center; justify-content: center; position: relative; ${imgStyle}">
+                            <div style="background: rgba(0, 0, 0, 0.35); position: absolute; inset: 0; border-radius: inherit; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa-brands fa-youtube" style="font-size: 42px; color: #FFFFFF; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.75));"></i>
+                            </div>
                         </div>
                         <span class="tag">${video.tag || 'Video'}</span>
                         <h3>${video.title || ''}</h3>
@@ -218,17 +298,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (videosGrid) {
-            // Render all videos for YouTube module page (Modul/youtube.html)
-            videosGrid.innerHTML = videosData.map(video => {
+            // Render seluruh video dari terbaru ke terlama (Modul/youtube.html)
+            videosGrid.innerHTML = sortedVideos.map(video => {
+                const autoThumb = getYouTubeThumbnail(video.url);
+                const rawImg = video.imgUrl || autoThumb;
                 let imgStyle = '';
-                if (video.imgUrl && video.imgUrl.trim() !== '') {
-                    const cleanPath = video.imgUrl.startsWith('../') ? video.imgUrl : `../${video.imgUrl}`;
+                if (rawImg && rawImg.trim() !== '') {
+                    const cleanPath = (rawImg.startsWith('http') || rawImg.startsWith('//') || rawImg.startsWith('../')) ? rawImg : `../${rawImg}`;
                     imgStyle = `background-image: url('${cleanPath}'); background-size: cover; background-position: center;`;
                 }
                 return `
                     <a href="${video.url || 'https://www.youtube.com/@nurauliakarismadewi'}" target="_blank" class="project-card glow-card" data-tag="${video.tag || 'Video'}">
-                        <div class="project-img ${video.bgClass || 'bg-a1'}" style="display: flex; align-items: center; justify-content: center; ${imgStyle}">
-                            <i class="fa-brands fa-youtube" style="font-size: 38px; color: #FFFFFF; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));"></i>
+                        <div class="project-img ${video.bgClass || 'bg-a1'}" style="display: flex; align-items: center; justify-content: center; position: relative; ${imgStyle}">
+                            <div style="background: rgba(0, 0, 0, 0.35); position: absolute; inset: 0; border-radius: inherit; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa-brands fa-youtube" style="font-size: 42px; color: #FFFFFF; filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.75));"></i>
+                            </div>
                         </div>
                         <span class="tag">${video.tag || 'Video'}</span>
                         <h3>${video.title || ''}</h3>
@@ -245,17 +329,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1.7. DYNAMIC CERTIFICATES RENDERING (From Data/certificates-data.js)
     // =============================================================
     function renderCertificateCards() {
-        const certData = (typeof certificateData !== 'undefined' && Array.isArray(certificateData)) 
+        const certDataRaw = (typeof certificateData !== 'undefined' && Array.isArray(certificateData)) 
             ? certificateData 
             : ((typeof certificatesData !== 'undefined' && Array.isArray(certificatesData)) ? certificatesData : null);
 
-        if (!certData) return;
+        if (!certDataRaw) return;
+
+        // Urutkan dari sertifikat terbaru ke terlama (ID terbesar / terakhir di atas)
+        const certData = [...certDataRaw].sort((a, b) => (b.id || 0) - (a.id || 0));
 
         const homeCertGrid = document.getElementById('homeCertGrid');
         const certGrid = document.getElementById('certGrid');
 
         if (homeCertGrid) {
-            // Render top 4 certificates for Home page (index.html)
+            // Render 4 sertifikat terbaru untuk Beranda (index.html)
             const homeItems = certData.slice(0, 4);
             homeCertGrid.innerHTML = homeItems.map(cert => {
                 const rawImg = cert.imgUrl || '';
@@ -271,7 +358,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 return `
                     <div class="project-card glow-card cert-card reveal" 
-                         data-source="${cert.source || cert.tag || 'Certificate'}" 
+                         data-source="${cert.tag || cert.source || 'Certificate'}" 
+                         data-tag="${cert.tag || 'Certificate'}" 
                          data-img="${cleanImg}" 
                          data-pages="${pagesList}" 
                          style="cursor: pointer;">
@@ -285,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (certGrid) {
-            // Render all certificates for Certificates module page (Modul/certificate.html)
+            // Render seluruh sertifikat dari terbaru ke terlama (Modul/certificate.html)
             certGrid.innerHTML = certData.map(cert => {
                 const rawImg = cert.imgUrl || '';
                 const cleanImg = (rawImg.startsWith('http') || rawImg.startsWith('../')) ? rawImg : `../${rawImg}`;
@@ -300,7 +388,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 return `
                     <div class="project-card glow-card cert-card" 
-                         data-source="${cert.source || cert.tag || 'Certificate'}" 
+                         data-source="${cert.tag || cert.source || 'Certificate'}" 
+                         data-tag="${cert.tag || 'Certificate'}" 
                          data-img="${cleanImg}" 
                          data-pages="${pagesList}" 
                          style="cursor: pointer;">
@@ -494,9 +583,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const title = (card.querySelector('h3') ? card.querySelector('h3').textContent : '').toLowerCase();
                 const desc = (card.querySelector('p') ? card.querySelector('p').textContent : '').toLowerCase();
                 const tagAttr = (card.getAttribute(attrName) || '').toLowerCase();
+                const cardTag = (card.getAttribute('data-tag') || '').toLowerCase();
+                const cardSource = (card.getAttribute('data-source') || '').toLowerCase();
+                const filterLower = currentFilter.toLowerCase();
 
-                const matchesSearch = !query || title.includes(query) || desc.includes(query) || tagAttr.includes(query);
-                const matchesTag = (currentFilter === 'all' || tagAttr === currentFilter.toLowerCase());
+                const matchesSearch = !query || title.includes(query) || desc.includes(query) || tagAttr.includes(query) || cardTag.includes(query) || cardSource.includes(query);
+                const matchesTag = (filterLower === 'all' || 
+                                    tagAttr === filterLower || 
+                                    cardTag === filterLower || 
+                                    cardSource === filterLower || 
+                                    tagAttr.includes(filterLower) || 
+                                    cardSource.includes(filterLower));
 
                 if (matchesSearch && matchesTag) {
                     card.style.display = 'flex';
@@ -530,6 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize on relevant pages
     initFilterSystem('projectSearch', 'projectsGrid', 'data-tag');
+    initFilterSystem('portfolioSearch', 'portfolioGrid', 'data-tag');
     initFilterSystem('articleSearch', 'articlesGrid', 'data-tag');
     initFilterSystem('certSearch', 'certGrid', 'data-source');
     initFilterSystem('videoSearch', 'videosGrid', 'data-tag');
@@ -619,9 +717,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (certCards.length > 0 && certModal) {
-        certCards.forEach(card => {
-            card.addEventListener('click', () => {
+    if (certModal) {
+        document.addEventListener('click', (e) => {
+            const card = e.target.closest('.cert-card');
+            if (card) {
                 const singleImg = card.getAttribute('data-img');
                 const multiPages = card.getAttribute('data-pages');
 
@@ -639,7 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 certModal.classList.add('active');
                 certModal.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
-            });
+            }
         });
 
         if (certPrevBtn) {
@@ -691,13 +790,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // =============================================================
     // 5. MODAL CONTROLS (About Timeline & Project Modals)
     // =============================================================
-    window.openProjectDetailModal = function(id) {
-        const portData = (typeof portofolioData !== 'undefined' && Array.isArray(portofolioData)) 
-            ? portofolioData 
-            : ((typeof portfolioData !== 'undefined' && Array.isArray(portfolioData)) ? portfolioData : null);
-        if (!portData) return;
+    window.openProjectDetailModal = function(id, type = 'project') {
+        let targetDataset = null;
+        if (type === 'portfolio') {
+            targetDataset = (typeof portfolioData !== 'undefined' && Array.isArray(portfolioData))
+                ? portfolioData
+                : ((typeof personalPortfolioData !== 'undefined' && Array.isArray(personalPortfolioData)) ? personalPortfolioData : null);
+        } else {
+            targetDataset = (typeof projectsData !== 'undefined' && Array.isArray(projectsData))
+                ? projectsData
+                : ((typeof handledProjectsData !== 'undefined' && Array.isArray(handledProjectsData)) ? handledProjectsData : null);
+        }
 
-        const project = portData.find(p => p.id === id) || portData[0];
+        // Fallbacks if one is not defined
+        if (!targetDataset || targetDataset.length === 0) {
+            targetDataset = (typeof projectsData !== 'undefined' && Array.isArray(projectsData)) 
+                ? projectsData 
+                : ((typeof portfolioData !== 'undefined' && Array.isArray(portfolioData)) ? portfolioData : null);
+        }
+        if (!targetDataset) return;
+
+        const project = targetDataset.find(p => p.id === id) || targetDataset[0];
         if (!project) return;
 
         const modal = document.getElementById('projectDetailModal');
@@ -713,8 +826,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryEl = document.getElementById('modalProjectCategory');
         const bannerEl = document.getElementById('modalProjectBanner');
 
-        if (titleEl) titleEl.textContent = `Detail Proyek – ${project.tag || 'Portofolio'}`;
-        if (tagEl) tagEl.textContent = project.tag || 'Proyek';
+        if (titleEl) titleEl.textContent = `Detail ${type === 'portfolio' ? 'Portofolio' : 'Proyek'} – ${project.tag || 'Overview'}`;
+        if (tagEl) tagEl.textContent = project.tag || (type === 'portfolio' ? 'Portofolio' : 'Proyek');
         if (nameEl) nameEl.textContent = project.detailName || project.title;
         if (descEl) descEl.textContent = project.detailDesc || project.description;
         if (roleEl) roleEl.textContent = project.role || 'QA Engineer';
