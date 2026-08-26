@@ -202,14 +202,14 @@ const certificatesData = [
 },
 {
     id: 14,
-    tag: "Sanbercode",
-    source: "Sanbercode",
+    tag: "SanberCode",
+    source: "SanberCode",
     title: "Bootcamp Quality Assurance",
     description: "Sertifikasi intensif Quality Assurance dari Sanbercode, mencakup fundamental SDLC/STLC & Agile, perancangan Test Plan & Test Case, bug reporting, API automation testing dengan Postman, query database SQL, serta Web UI Test Automation menggunakan Cypress.io.",
-    imgUrl: "../certification/Sanbercode/SanberCode 1.jpg",
+    imgUrl: "../certification/SanberCode/SanberCode 1.jpg",
     pages: [
-      "../certification/Sanbercode/SanberCode 1.jpg",
-      "../certification/Sanbercode/SanberCode 2.jpg"
+      "../certification/SanberCode/SanberCode 1.jpg",
+      "../certification/SanberCode/SanberCode 2.jpg"
     ],
     bgClass: "bg-c13"
 }
