@@ -805,7 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tagEl) tagEl.textContent = cert.tag || 'Sertifikasi';
         if (titleEl) titleEl.textContent = cert.title || '';
         if (issuerEl) issuerEl.textContent = cert.source || cert.tag || 'Lembaga Pelatihan Terakreditasi';
-        if (descEl) descEl.textContent = cert.description || 'Sertifikasi kompetensi jaminan mutu perangkat lunak dan keahlian rekayasa sistem.';
+        if (descEl) descEl.textContent = cert.description || 'Sertifikasi kompetensi Quality Assurance Engineer dan keahlian rekayasa sistem.';
         if (specIssuerEl) specIssuerEl.textContent = cert.source || '-';
         if (specFieldEl) specFieldEl.textContent = cert.field || (cert.tag === 'SanberCode' ? 'QA Engineer / Automation Testing' : (cert.tag === 'Dicoding' ? 'Mobile Developer / Software Engineer' : cert.tag));
         if (specPagesEl) specPagesEl.textContent = `${currentCertDetailPages.length} Lembar Dokumen Resmi`;
@@ -1010,9 +1010,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tagEl) tagEl.textContent = project.tag || (type === 'portfolio' ? 'Portofolio' : 'Proyek');
         if (nameEl) nameEl.textContent = project.detailName || project.title;
         if (descEl) descEl.textContent = project.detailDesc || project.description;
-        if (roleEl) roleEl.textContent = project.role || 'Spesialis Jaminan Mutu (QA)';
+        if (roleEl) roleEl.textContent = project.role || 'Quality Assurance Engineer';
         if (durationEl) durationEl.textContent = project.duration || '-';
-        if (categoryEl) categoryEl.textContent = project.tag || 'Jaminan Mutu Perangkat Lunak';
+        if (categoryEl) categoryEl.textContent = project.tag || 'Quality Assurance';
 
         if (bannerEl) {
             const bgClass = project.bannerBg || project.bgClass || 'bg-a1';

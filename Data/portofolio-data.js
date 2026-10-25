@@ -25,7 +25,7 @@ const portfolioData = [
       "Manual Dependency Injection",
       "Validasi QA"
     ],
-    role: "Pengembang Android & Penguji Mutu (QA)",
+    role: "Android Developer & Quality Assurance Engineer",
     duration: "1 Bulan (Proyek Mandiri)"
   },
   {
@@ -96,7 +96,7 @@ const portfolioData = [
       "Coroutines",
       "LiveData"
     ],
-    role: "Pengembang Android & Penguji Mutu (QA)",
+    role: "Android Developer & Quality Assurance Engineer",
     duration: "1 Bulan (Proyek Mandiri)"
   },
   {
@@ -117,7 +117,7 @@ const portfolioData = [
       "MVVM",
       "Validasi QA"
     ],
-    role: "Pengembang Android & Penguji Mutu (QA)",
+    role: "Android Developer & Quality Assurance Engineer",
     duration: "1 Bulan (Proyek Mandiri)"
   },
   {
