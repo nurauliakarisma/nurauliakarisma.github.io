@@ -80,6 +80,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Helper untuk normalisasi path gambar aset agar selalu valid baik di index.html maupun di Modul/*.html
+    function resolveAssetPath(path, isInsideModul = false) {
+        if (!path || typeof path !== 'string' || path.trim() === '') return '';
+        let p = path.trim();
+        if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('//') || p.startsWith('data:')) {
+            return p;
+        }
+        // Hapus semua awalan ../, ./, atau / agar path relatif dari root folder web
+        p = p.replace(/^(\.\.\/|\.\/|\/)+/, '');
+        
+        // Normalisasi folder project/ atau Project/ agar persis 'Project/'
+        if (p.toLowerCase().startsWith('project/')) {
+            p = 'Project/' + p.slice(8);
+        }
+
+        return isInsideModul ? `../${p}` : p;
+    }
+
     // =============================================================
     // 1.4. DYNAMIC HANDLED PROJECTS RENDERING (From Data/projects-data.js)
     // =============================================================
@@ -90,8 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!projDataRaw) return;
 
+        // Filter item kosong
+        const validProjects = projDataRaw.filter(item => item && item.title && item.title.trim() !== '');
+
         // Urutkan dari proyek terbaru ke terlama (ID terbesar / terakhir di atas)
-        const projData = [...projDataRaw].sort((a, b) => (b.id || 0) - (a.id || 0));
+        const projData = [...validProjects].sort((a, b) => (b.id || 0) - (a.id || 0));
 
         const homeProjectsGrid = document.getElementById('homeProjectsGrid');
         const projectsGrid = document.getElementById('projectsGrid');
@@ -101,16 +122,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const homeItems = projData.slice(0, 4);
             homeProjectsGrid.innerHTML = homeItems.map(item => {
                 let imgStyle = '';
-                if (item.imgUrl && item.imgUrl.trim() !== '') {
-                    const cleanPath = item.imgUrl.replace(/^\.\.\//, '');
-                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
+                const cleanPath = resolveAssetPath(item.imgUrl, false);
+                if (cleanPath) {
+                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: top center;"`;
                 }
+                const cardDesc = item.detailDesc || item.description || '';
                 return `
-                    <div class="project-card glow-card reveal" data-tag="${item.tag || 'Project'}" onclick="openProjectDetailModal(${item.id}, 'project')" style="cursor: pointer;">
+                    <div class="project-card glow-card reveal" data-tag="${item.tag || 'Proyek'}" onclick="openProjectDetailModal(${item.id}, 'project')" style="cursor: pointer;">
                         <div class="project-img ${item.bgClass || 'bg-p1'}" ${imgStyle}></div>
-                        <span class="tag">${item.tag || 'Project'}</span>
+                        <span class="tag">${item.tag || 'Proyek'}</span>
                         <h3>${item.title || ''}</h3>
-                        <p>${item.description || ''}</p>
+                        <p>${cardDesc}</p>
                     </div>
                 `;
             }).join('');
@@ -120,16 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Render seluruh proyek dari terbaru ke terlama (Modul/project.html)
             projectsGrid.innerHTML = projData.map(item => {
                 let imgStyle = '';
-                if (item.imgUrl && item.imgUrl.trim() !== '') {
-                    const cleanPath = item.imgUrl.startsWith('../') ? item.imgUrl : `../${item.imgUrl}`;
-                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
+                const cleanPath = resolveAssetPath(item.imgUrl, true);
+                if (cleanPath) {
+                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: top center;"`;
                 }
+                const cardDesc = item.detailDesc || item.description || '';
                 return `
-                    <div class="project-card glow-card" data-tag="${item.tag || 'Project'}" onclick="openProjectDetailModal(${item.id}, 'project')" style="cursor: pointer;">
+                    <div class="project-card glow-card" data-tag="${item.tag || 'Proyek'}" onclick="openProjectDetailModal(${item.id}, 'project')" style="cursor: pointer;">
                         <div class="project-img ${item.bgClass || 'bg-a1'}" ${imgStyle}></div>
-                        <span class="tag">${item.tag || 'Project'}</span>
+                        <span class="tag">${item.tag || 'Proyek'}</span>
                         <h3>${item.title || ''}</h3>
-                        <p>${item.description || ''}</p>
+                        <p>${cardDesc}</p>
                     </div>
                 `;
             }).join('');
@@ -161,16 +184,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const homeItems = portData.slice(0, 4);
             homePortfolioGrid.innerHTML = homeItems.map(item => {
                 let imgStyle = '';
-                if (item.imgUrl && item.imgUrl.trim() !== '') {
-                    const cleanPath = item.imgUrl.replace(/^\.\.\//, '');
-                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
+                const cleanPath = resolveAssetPath(item.imgUrl, false);
+                if (cleanPath) {
+                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: top center;"`;
                 }
+                const cardDesc = item.detailDesc || item.description || '';
                 return `
-                    <div class="project-card glow-card reveal" data-tag="${item.tag || 'Portfolio'}" onclick="openProjectDetailModal(${item.id}, 'portfolio')" style="cursor: pointer;">
+                    <div class="project-card glow-card reveal" data-tag="${item.tag || 'Portofolio'}" onclick="openProjectDetailModal(${item.id}, 'portfolio')" style="cursor: pointer;">
                         <div class="project-img ${item.bgClass || 'bg-p2'}" ${imgStyle}></div>
-                        <span class="tag">${item.tag || 'Portfolio'}</span>
+                        <span class="tag">${item.tag || 'Portofolio'}</span>
                         <h3>${item.title || ''}</h3>
-                        <p>${item.description || ''}</p>
+                        <p>${cardDesc}</p>
                     </div>
                 `;
             }).join('');
@@ -180,16 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Render seluruh portofolio personal dari terbaru ke terlama (Modul/portfolio.html)
             portfolioGrid.innerHTML = portData.map(item => {
                 let imgStyle = '';
-                if (item.imgUrl && item.imgUrl.trim() !== '') {
-                    const cleanPath = item.imgUrl.startsWith('../') ? item.imgUrl : `../${item.imgUrl}`;
-                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: center;"`;
+                const cleanPath = resolveAssetPath(item.imgUrl, true);
+                if (cleanPath) {
+                    imgStyle = `style="background-image: url('${cleanPath}'); background-size: cover; background-position: top center;"`;
                 }
+                const cardDesc = item.detailDesc || item.description || '';
                 return `
-                    <div class="project-card glow-card" data-tag="${item.tag || 'Portfolio'}" onclick="openProjectDetailModal(${item.id}, 'portfolio')" style="cursor: pointer;">
+                    <div class="project-card glow-card" data-tag="${item.tag || 'Portofolio'}" onclick="openProjectDetailModal(${item.id}, 'portfolio')" style="cursor: pointer;">
                         <div class="project-img ${item.bgClass || 'bg-a2'}" ${imgStyle}></div>
-                        <span class="tag">${item.tag || 'Portfolio'}</span>
+                        <span class="tag">${item.tag || 'Portofolio'}</span>
                         <h3>${item.title || ''}</h3>
-                        <p>${item.description || ''}</p>
+                        <p>${cardDesc}</p>
                     </div>
                 `;
             }).join('');
@@ -220,9 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     imgStyle = `style="background-image: url('${cleanPath}');"`;
                 }
                 return `
-                    <a href="${article.url || 'Modul/article.html'}" target="_blank" class="project-card glow-card reveal" data-tag="${article.tag || 'Testing'}">
+                    <a href="${article.url || 'Modul/article.html'}" target="_blank" class="project-card glow-card reveal" data-tag="${article.tag || 'Pengujian'}">
                         <div class="project-img ${article.bgClass || 'bg-a1'}" ${imgStyle}></div>
-                        <span class="tag">${article.tag || 'Article'}</span>
+                        <span class="tag">${article.tag || 'Artikel'}</span>
                         <h3>${article.title || ''}</h3>
                         <p>${article.description || ''}</p>
                     </a>
@@ -239,9 +264,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     imgStyle = `style="background-image: url('${cleanPath}');"`;
                 }
                 return `
-                    <a href="${article.url || '#'}" target="_blank" class="project-card glow-card" data-tag="${article.tag || 'Testing'}">
+                    <a href="${article.url || '#'}" target="_blank" class="project-card glow-card" data-tag="${article.tag || 'Pengujian'}">
                         <div class="project-img ${article.bgClass || 'bg-a1'}" ${imgStyle}></div>
-                        <span class="tag">${article.tag || 'Article'}</span>
+                        <span class="tag">${article.tag || 'Artikel'}</span>
                         <h3>${article.title || ''}</h3>
                         <p>${article.description || ''}</p>
                     </a>
@@ -358,13 +383,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 return `
                     <div class="project-card glow-card cert-card reveal" 
-                         data-source="${cert.tag || cert.source || 'Certificate'}" 
-                         data-tag="${cert.tag || 'Certificate'}" 
+                         data-source="${cert.tag || cert.source || 'Sertifikasi'}" 
+                         data-tag="${cert.tag || 'Sertifikasi'}" 
+                         data-id="${cert.id}"
                          data-img="${cleanImg}" 
                          data-pages="${pagesList}" 
+                         onclick="openCertDetailModal(${cert.id})"
                          style="cursor: pointer;">
                         <div class="project-img ${cert.bgClass || 'bg-c1'}" ${imgStyle}></div>
-                        <span class="tag">${cert.tag || 'Certificate'}</span>
+                        <span class="tag">${cert.tag || 'Sertifikasi'}</span>
                         <h3>${cert.title || ''}</h3>
                         <p>${cert.description || ''}</p>
                     </div>
@@ -388,13 +415,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 return `
                     <div class="project-card glow-card cert-card" 
-                         data-source="${cert.tag || cert.source || 'Certificate'}" 
-                         data-tag="${cert.tag || 'Certificate'}" 
+                         data-source="${cert.tag || cert.source || 'Sertifikasi'}" 
+                         data-tag="${cert.tag || 'Sertifikasi'}" 
+                         data-id="${cert.id}"
                          data-img="${cleanImg}" 
                          data-pages="${pagesList}" 
+                         onclick="openCertDetailModal(${cert.id})"
                          style="cursor: pointer;">
                         <div class="project-img ${cert.bgClass || 'bg-c1'}" ${imgStyle}></div>
-                        <span class="tag">${cert.tag || 'Certificate'}</span>
+                        <span class="tag">${cert.tag || 'Sertifikasi'}</span>
                         <h3>${cert.title || ''}</h3>
                         <p>${cert.description || ''}</p>
                     </div>
@@ -416,38 +445,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const timelineModals = document.getElementById('timelineModalsContainer');
 
         if (heroCardsGrid) {
-            heroCardsGrid.innerHTML = timelineData.map(item => `
+            heroCardsGrid.innerHTML = timelineData.map(item => {
+                const imgPath = resolveAssetPath(item.miniCardImg, true);
+                return `
                 <div class="mini-card" onclick="openModal('${item.modalId}')">
-                    <img src="${item.miniCardImg}" alt="${item.miniCardLabel}">
+                    <img src="${imgPath}" alt="${item.miniCardLabel}">
                     <div class="mini-card-overlay">${item.miniCardLabel}</div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         if (timelineContainer) {
             const itemsHtml = timelineData.map((item, index) => {
                 const isLast = index === timelineData.length - 1;
-                const dotColor = item.isCurrent ? 'var(--accent-yellow)' : 'var(--cyan-primary)';
-                const badgeBg = item.isCurrent ? 'rgba(250, 204, 21, 0.15)' : 'rgba(6, 182, 212, 0.15)';
-                const badgeColor = item.isCurrent ? '#fde047' : 'var(--cyan-light)';
-                const badgeBorder = item.isCurrent ? 'rgba(250, 204, 21, 0.3)' : 'rgba(6, 182, 212, 0.3)';
-                const subtitleColor = item.isCurrent ? '#facc15' : 'var(--cyan-light)';
+                const dotClass = item.isCurrent ? 'timeline-dot current' : 'timeline-dot';
+                const badgeClass = item.isCurrent ? 'timeline-badge current' : 'timeline-badge';
+                const subtitleClass = item.isCurrent ? 'timeline-card-subtitle current' : 'timeline-card-subtitle';
 
                 return `
-                    <div class="reveal" style="position: relative; margin-bottom: ${isLast ? '25px' : '35px'};">
-                        <span style="position: absolute; left: -39px; top: 16px; width: 16px; height: 16px; background: ${dotColor}; border-radius: 50%; box-shadow: 0 0 12px ${dotColor}; border: 3px solid var(--bg-main);"></span>
+                    <div class="timeline-item reveal ${isLast ? 'is-last' : ''}">
+                        <div class="timeline-marker">
+                            <span class="${dotClass}"></span>
+                            ${!isLast ? '<div class="timeline-line"></div>' : ''}
+                        </div>
                         <div class="timeline-card">
-                            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                                <span style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; background: ${badgeBg}; color: ${badgeColor}; border: 1px solid ${badgeBorder};">
+                            <div class="timeline-card-header">
+                                <span class="${badgeClass}">
                                     ${item.category}
                                 </span>
-                                <span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; background: rgba(250, 204, 21, 0.12); color: var(--accent-yellow); border: 1px solid rgba(250, 204, 21, 0.3);">
-                                    <i class="fa-regular fa-calendar-days" style="font-size: 11px;"></i> ${item.year}
+                                <span class="timeline-year">
+                                    <i class="fa-regular fa-calendar-days"></i> ${item.year}
                                 </span>
                             </div>
-                            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">${item.title}</h3>
-                            <p style="font-size: 12px; color: ${subtitleColor}; font-weight: 600; margin-bottom: 10px;">${item.subtitle}</p>
-                            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                            <h3 class="timeline-card-title">${item.title}</h3>
+                            <p class="${subtitleClass}">${item.subtitle}</p>
+                            <p class="timeline-card-desc">
                                 ${item.description}
                             </p>
                             <button class="btn-read-more" onclick="openModal('${item.modalId}')">
@@ -458,11 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }).join('');
 
-            timelineContainer.innerHTML = `
-                <!-- Garis Vertikal Timeline -->
-                <div style="position: absolute; left: 12px; top: 12px; bottom: 12px; width: 3px; background: linear-gradient(to bottom, var(--cyan-primary), var(--accent-yellow), transparent); border-radius: 3px; box-shadow: 0 0 12px var(--cyan-glow);"></div>
-                ${itemsHtml}
-            `;
+            timelineContainer.innerHTML = itemsHtml;
         }
 
         if (timelineModals) {
@@ -659,9 +688,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =============================================================
-    // 4. CERTIFICATE PREVIEW MODAL (LIGHTBOX SLIDER)
+    // 4. CERTIFICATE DETAIL MODAL & FULLSCREEN PREVIEW SLIDER
     // =============================================================
-    const certCards = document.querySelectorAll('.cert-card');
     const certModal = document.getElementById('certModal');
     const modalImg = document.getElementById('modalImg');
     const certCloseBtn = document.getElementById('certCloseBtn');
@@ -671,9 +699,159 @@ document.addEventListener('DOMContentLoaded', () => {
     const certTotalPages = document.getElementById('certTotalPages');
     const certPageIndicator = document.getElementById('certPageIndicator');
 
+    const certDetailModal = document.getElementById('certDetailModal');
+    const certDetailModalImg = document.getElementById('certDetailModalImg');
+    const certDetailPrevBtn = document.getElementById('certDetailPrevBtn');
+    const certDetailNextBtn = document.getElementById('certDetailNextBtn');
+
     let currentCertList = [];
     let currentCertIndex = 0;
 
+    let currentCertDetailPages = [];
+    let currentCertDetailIndex = 0;
+    let currentActiveCert = null;
+
+    // Menampilkan halaman sertifikat pada Modal Detail
+    function showCertDetailSlide(index) {
+        if (!currentCertDetailPages || currentCertDetailPages.length === 0) return;
+        if (index < 0) index = 0;
+        if (index >= currentCertDetailPages.length) index = currentCertDetailPages.length - 1;
+        currentCertDetailIndex = index;
+
+        const imgEl = document.getElementById('certDetailModalImg');
+        const counterEl = document.getElementById('certDetailCurrentPage');
+        const totalEl = document.getElementById('certDetailTotalPages');
+        const toolbarEl = document.getElementById('certSliderToolbar');
+        const pillsContainer = document.getElementById('certDetailPills');
+        const prevBtn = document.getElementById('certDetailPrevBtn');
+        const nextBtn = document.getElementById('certDetailNextBtn');
+
+        if (imgEl) {
+            imgEl.style.opacity = '0';
+            imgEl.style.transform = 'scale(0.97)';
+            setTimeout(() => {
+                imgEl.src = currentCertDetailPages[currentCertDetailIndex];
+                imgEl.onload = () => {
+                    imgEl.style.opacity = '1';
+                    imgEl.style.transform = 'scale(1)';
+                };
+            }, 60);
+        }
+
+        if (counterEl) counterEl.textContent = (currentCertDetailIndex + 1).toString();
+        if (totalEl) totalEl.textContent = currentCertDetailPages.length.toString();
+
+        if (toolbarEl) {
+            toolbarEl.style.display = (currentCertDetailPages.length > 1) ? 'flex' : 'none';
+        }
+
+        if (prevBtn) prevBtn.disabled = (currentCertDetailIndex === 0);
+        if (nextBtn) nextBtn.disabled = (currentCertDetailIndex === currentCertDetailPages.length - 1);
+
+        if (pillsContainer) {
+            if (currentCertDetailPages.length > 1) {
+                pillsContainer.style.display = 'flex';
+                pillsContainer.innerHTML = currentCertDetailPages.map((_, idx) => `
+                    <button type="button" class="cert-page-pill ${idx === currentCertDetailIndex ? 'active' : ''}" 
+                            onclick="showCertDetailSlide(${idx})">
+                        <i class="fa-solid fa-file-image"></i> Lembar ${idx + 1}
+                    </button>
+                `).join('');
+            } else {
+                pillsContainer.style.display = 'none';
+                pillsContainer.innerHTML = '';
+            }
+        }
+    }
+    window.showCertDetailSlide = showCertDetailSlide;
+
+    // Membuka Modal Detail Sertifikat Lengkap
+    window.openCertDetailModal = function(id) {
+        const certDataRaw = (typeof certificateData !== 'undefined' && Array.isArray(certificateData)) 
+            ? certificateData 
+            : ((typeof certificatesData !== 'undefined' && Array.isArray(certificatesData)) ? certificatesData : null);
+
+        if (!certDataRaw || certDataRaw.length === 0) return;
+
+        const cert = certDataRaw.find(c => c.id === id) || certDataRaw[0];
+        if (!cert) return;
+        currentActiveCert = cert;
+
+        const modal = document.getElementById('certDetailModal');
+        if (!modal) return;
+
+        const isInsideModul = window.location.pathname.includes('/Modul/') || window.location.pathname.includes('\\Modul\\');
+
+        // Normalisasi daftar lembar/halaman gambar sertifikat
+        let rawPages = [];
+        if (Array.isArray(cert.pages) && cert.pages.length > 0) {
+            rawPages = cert.pages;
+        } else if (cert.imgUrl) {
+            rawPages = [cert.imgUrl];
+        }
+
+        currentCertDetailPages = rawPages.map(p => resolveAssetPath(p, isInsideModul)).filter(Boolean);
+        currentCertDetailIndex = 0;
+
+        // Mengisi elemen teks informasi detail sertifikat
+        const tagEl = document.getElementById('modalCertTag');
+        const titleEl = document.getElementById('certDetailTitle');
+        const issuerEl = document.getElementById('certDetailIssuer');
+        const descEl = document.getElementById('certDetailDesc');
+        const specIssuerEl = document.getElementById('certSpecIssuer');
+        const specFieldEl = document.getElementById('certSpecField');
+        const specPagesEl = document.getElementById('certSpecPages');
+
+        if (tagEl) tagEl.textContent = cert.tag || 'Sertifikasi';
+        if (titleEl) titleEl.textContent = cert.title || '';
+        if (issuerEl) issuerEl.textContent = cert.source || cert.tag || 'Lembaga Pelatihan Terakreditasi';
+        if (descEl) descEl.textContent = cert.description || 'Sertifikasi kompetensi jaminan mutu perangkat lunak dan keahlian rekayasa sistem.';
+        if (specIssuerEl) specIssuerEl.textContent = cert.source || '-';
+        if (specFieldEl) specFieldEl.textContent = cert.field || (cert.tag === 'SanberCode' ? 'QA Engineer / Automation Testing' : (cert.tag === 'Dicoding' ? 'Mobile Developer / Software Engineer' : cert.tag));
+        if (specPagesEl) specPagesEl.textContent = `${currentCertDetailPages.length} Lembar Dokumen Resmi`;
+
+        // Render slide awal
+        showCertDetailSlide(0);
+
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    };
+
+    // Navigasi prev/next pada Modal Detail
+    if (certDetailPrevBtn) {
+        certDetailPrevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentCertDetailIndex > 0) {
+                showCertDetailSlide(currentCertDetailIndex - 1);
+            }
+        });
+    }
+
+    if (certDetailNextBtn) {
+        certDetailNextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentCertDetailIndex < currentCertDetailPages.length - 1) {
+                showCertDetailSlide(currentCertDetailIndex + 1);
+            }
+        });
+    }
+
+    // Membuka Gambar Resolusi Penuh (Fullscreen Lightbox)
+    window.openCertZoom = function() {
+        if (!currentCertDetailPages || currentCertDetailPages.length === 0) return;
+        currentCertList = currentCertDetailPages;
+        currentCertIndex = currentCertDetailIndex;
+        showCertSlide(currentCertIndex);
+
+        if (certModal) {
+            certModal.classList.add('active');
+            certModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+    };
+
+    // Slider untuk Lightbox Resolusi Penuh
     function showCertSlide(index) {
         if (!currentCertList || currentCertList.length === 0) return;
         currentCertIndex = index;
@@ -713,79 +891,81 @@ document.addEventListener('DOMContentLoaded', () => {
         if (certModal) {
             certModal.classList.remove('active');
             certModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+            const detailModal = document.getElementById('certDetailModal');
+            if (!detailModal || !detailModal.classList.contains('active')) {
+                document.body.style.overflow = 'auto';
+            }
         }
     }
 
-    if (certModal) {
-        document.addEventListener('click', (e) => {
-            const card = e.target.closest('.cert-card');
-            if (card) {
-                const singleImg = card.getAttribute('data-img');
-                const multiPages = card.getAttribute('data-pages');
+    // Delegasi klik kartu sertifikat bila belum terpicu
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('.cert-card');
+        if (card && !e.target.closest('.modal-container')) {
+            const certId = card.getAttribute('data-id');
+            if (certId) {
+                openCertDetailModal(parseInt(certId, 10));
+            }
+        }
+    });
 
-                if (multiPages) {
-                    currentCertList = multiPages.split(',').map(s => s.trim()).filter(Boolean);
-                } else if (singleImg) {
-                    currentCertList = [singleImg];
-                } else {
-                    currentCertList = [];
-                }
-
-                currentCertIndex = 0;
-                showCertSlide(0);
-
-                certModal.classList.add('active');
-                certModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+    if (certPrevBtn) {
+        certPrevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentCertIndex > 0) {
+                showCertSlide(currentCertIndex - 1);
             }
         });
+    }
 
-        if (certPrevBtn) {
-            certPrevBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (currentCertIndex > 0) {
-                    showCertSlide(currentCertIndex - 1);
-                }
-            });
-        }
+    if (certNextBtn) {
+        certNextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentCertIndex < currentCertList.length - 1) {
+                showCertSlide(currentCertIndex + 1);
+            }
+        });
+    }
 
-        if (certNextBtn) {
-            certNextBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (currentCertIndex < currentCertList.length - 1) {
-                    showCertSlide(currentCertIndex + 1);
-                }
-            });
-        }
+    if (certCloseBtn) {
+        certCloseBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeCertLightbox();
+        });
+    }
 
-        if (certCloseBtn) {
-            certCloseBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closeCertLightbox();
-            });
-        }
-
-        // Close on clicking backdrop (outside image and nav buttons)
+    // Menutup Lightbox saat klik area luar gambar
+    if (certModal) {
         certModal.addEventListener('click', (e) => {
             if (e.target === certModal || e.target.classList.contains('cert-img-wrapper')) {
                 closeCertLightbox();
             }
         });
+    }
 
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (certModal.classList.contains('active')) {
-                if (e.key === 'ArrowLeft' && certPrevBtn && !certPrevBtn.disabled) {
-                    certPrevBtn.click();
-                } else if (e.key === 'ArrowRight' && certNextBtn && !certNextBtn.disabled) {
-                    certNextBtn.click();
+    // Kontrol Keyboard (Panah Kiri, Kanan, Escape)
+    document.addEventListener('keydown', (e) => {
+        if (certModal && certModal.classList.contains('active')) {
+            if (e.key === 'ArrowLeft' && certPrevBtn && !certPrevBtn.disabled) {
+                certPrevBtn.click();
+            } else if (e.key === 'ArrowRight' && certNextBtn && !certNextBtn.disabled) {
+                certNextBtn.click();
+            } else if (e.key === 'Escape') {
+                closeCertLightbox();
+            }
+        } else {
+            const detailModal = document.getElementById('certDetailModal');
+            if (detailModal && detailModal.classList.contains('active')) {
+                if (e.key === 'ArrowLeft' && currentCertDetailIndex > 0) {
+                    showCertDetailSlide(currentCertDetailIndex - 1);
+                } else if (e.key === 'ArrowRight' && currentCertDetailIndex < currentCertDetailPages.length - 1) {
+                    showCertDetailSlide(currentCertDetailIndex + 1);
                 } else if (e.key === 'Escape') {
-                    closeCertLightbox();
+                    window.closeModal('certDetailModal');
                 }
             }
-        });
-    }
+        }
+    });
 
     // =============================================================
     // 5. MODAL CONTROLS (About Timeline & Project Modals)
@@ -826,27 +1006,68 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryEl = document.getElementById('modalProjectCategory');
         const bannerEl = document.getElementById('modalProjectBanner');
 
-        if (titleEl) titleEl.textContent = `Detail ${type === 'portfolio' ? 'Portofolio' : 'Proyek'} – ${project.tag || 'Overview'}`;
+        if (titleEl) titleEl.textContent = `Detail ${type === 'portfolio' ? 'Portofolio' : 'Proyek'} – ${project.tag || 'Ikhtisar'}`;
         if (tagEl) tagEl.textContent = project.tag || (type === 'portfolio' ? 'Portofolio' : 'Proyek');
         if (nameEl) nameEl.textContent = project.detailName || project.title;
         if (descEl) descEl.textContent = project.detailDesc || project.description;
-        if (roleEl) roleEl.textContent = project.role || 'QA Engineer';
+        if (roleEl) roleEl.textContent = project.role || 'Spesialis Jaminan Mutu (QA)';
         if (durationEl) durationEl.textContent = project.duration || '-';
-        if (categoryEl) categoryEl.textContent = project.tag || 'Quality Assurance';
+        if (categoryEl) categoryEl.textContent = project.tag || 'Jaminan Mutu Perangkat Lunak';
 
         if (bannerEl) {
-            bannerEl.className = `project-banner-preview ${project.bgClass || 'bg-a1'}`;
-            if (project.imgUrl && project.imgUrl.trim() !== '') {
-                const isInsideModul = window.location.pathname.includes('/Modul/') || window.location.pathname.includes('\\Modul\\');
-                let cleanImg = project.imgUrl;
-                if (isInsideModul) {
-                    cleanImg = project.imgUrl.startsWith('../') ? project.imgUrl : `../${project.imgUrl}`;
-                } else {
-                    cleanImg = project.imgUrl.replace(/^\.\.\//, '');
-                }
+            const bgClass = project.bannerBg || project.bgClass || 'bg-a1';
+            bannerEl.className = `project-banner-preview ${bgClass}`;
+
+            const rawImg = project.bannerImg || project.imgUrl || '';
+            const isInsideModul = window.location.pathname.includes('/Modul/') || window.location.pathname.includes('\\Modul\\');
+            const cleanImg = resolveAssetPath(rawImg, isInsideModul);
+            if (cleanImg) {
                 bannerEl.style.backgroundImage = `url('${cleanImg}')`;
+                bannerEl.style.backgroundPosition = 'top center';
             } else {
                 bannerEl.style.backgroundImage = '';
+                bannerEl.style.backgroundPosition = '';
+            }
+
+            // Banner Badge & Overlay handling (bisa diatur langsung di projects-data.js)
+            const bannerBadgeEl = document.getElementById('modalProjectBannerBadge') || bannerEl.querySelector('.banner-badge');
+            let bannerOverlayEl = bannerEl.querySelector('.banner-overlay');
+
+            let badgeText = '';
+            let badgeIcon = (project.bannerIcon !== undefined) ? project.bannerIcon : 'fa-solid fa-shield-check';
+
+            if (project.bannerBadge !== undefined && project.bannerBadge !== null) {
+                if (typeof project.bannerBadge === 'object') {
+                    badgeText = project.bannerBadge.text || '';
+                    if (project.bannerBadge.icon !== undefined) badgeIcon = project.bannerBadge.icon;
+                } else {
+                    badgeText = String(project.bannerBadge);
+                }
+            } else if (project.banner && (project.banner.badge || project.banner.text)) {
+                badgeText = project.banner.badge || project.banner.text || '';
+                if (project.banner.icon !== undefined) badgeIcon = project.banner.icon;
+            } else {
+                badgeText = type === 'portfolio' ? 'Portofolio Terverifikasi' : 'Pengujian Web & Aplikasi Mobile';
+            }
+
+            if (project.bannerBadge === false || badgeText === 'false' || badgeText === '') {
+                if (bannerOverlayEl) bannerOverlayEl.style.display = 'none';
+            } else {
+                if (bannerOverlayEl) bannerOverlayEl.style.display = 'flex';
+                const iconHtml = (badgeIcon && badgeIcon !== 'none') ? `<i class="${badgeIcon}"></i> ` : '';
+                const badgeHtml = (badgeText.includes('<i') || badgeText.includes('<svg') || badgeText.includes('<span'))
+                    ? badgeText
+                    : `${iconHtml}${badgeText}`;
+
+                if (bannerBadgeEl) {
+                    bannerBadgeEl.innerHTML = badgeHtml;
+                } else if (bannerOverlayEl) {
+                    const newBadge = document.createElement('div');
+                    newBadge.className = 'banner-badge';
+                    newBadge.id = 'modalProjectBannerBadge';
+                    newBadge.innerHTML = badgeHtml;
+                    bannerOverlayEl.appendChild(newBadge);
+                }
             }
         }
 
